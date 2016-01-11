@@ -11,6 +11,8 @@
   },
   "main": [],
   "description": "",
-  "dependencies": {},
+  "dependencies": {
+    "backbone.marionette": "~2.4.4"
+  },
   "devDependencies": {}
 }

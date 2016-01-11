@@ -1,0 +1,16 @@
+{
+  "name": "marionette-form",
+  "version": "0.0.0",
+  "licence": "ISC",
+  "authors": [
+    "Jurie-Jan Botha <juriejanbotha@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juriejan/marionette-form.git"
+  },
+  "main": [],
+  "description": "",
+  "dependencies": {},
+  "devDependencies": {}
+}

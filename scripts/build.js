@@ -1,4 +1,6 @@
 
+const _ = require('lodash')
+
 const rollup = require('rollup')
 
 const Promise = require('bluebird')
@@ -8,6 +10,7 @@ const fs = Promise.promisifyAll(require('fs-extra'))
 const lint = require('./lint')
 const utils = require('./utils')
 
+const GLOBALS = require('../package.json')['rollup-globals']
 const TARGET = 'dist/js/marionette-form.js'
 
 function build () {
@@ -17,16 +20,12 @@ function build () {
     .then(() => utils.mkdirs('dist/js'))
     .then(() => rollup.rollup({
       entry: 'src/index.js',
-      external: [
-        'marionette'
-      ]
+      external: _.keys(GLOBALS)
     }))
     .then((bundle) => bundle.generate({
       format: 'umd',
       moduleName: 'form',
-      globals: {
-        marionette: 'Marionette'
-      }
+      globals: GLOBALS
     }))
     .then((result) => fs.writeFileAsync(TARGET, result.code))
 }

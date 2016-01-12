@@ -10,22 +10,25 @@ const fs = Promise.promisifyAll(require('fs-extra'))
 const lint = require('./lint')
 const utils = require('./utils')
 
-const GLOBALS = require('../package.json')['rollup-globals']
-const TARGET = 'dist/js/marionette-form.js'
+const PACKAGE = require('../package.json')
+const TARGET = PACKAGE['build-target']
 
 function build () {
+  // Retrieve the package globals
+  var globals = PACKAGE['rollup-globals']
+  // Follow the build steps
   return Promise.resolve()
     .then(() => lint())
     .then(() => utils.mkdirs('dist'))
     .then(() => utils.mkdirs('dist/js'))
     .then(() => rollup.rollup({
       entry: 'src/index.js',
-      external: _.keys(GLOBALS)
+      external: _.keys(globals)
     }))
     .then((bundle) => bundle.generate({
       format: 'umd',
       moduleName: 'form',
-      globals: GLOBALS
+      globals
     }))
     .then((result) => fs.writeFileAsync(TARGET, result.code))
 }

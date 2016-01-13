@@ -23,7 +23,10 @@
   },
   "build-target": "dist/js/marionette-form.js",
   "rollup-globals": {
-    "marionette": "Marionette"
+    "marionette": "Marionette",
+    "lodash": "_",
+    "jquery": "$",
+    "validator": "validator"
   },
   "rollup-test-globals": {
     "mocha": "mocha",
@@ -40,6 +43,7 @@
     "lodash": "^3.10.1",
     "mocha": "^2.3.4",
     "rollup": "^0.24.1",
+    "rollup-plugin-commonjs": "^2.1.0",
     "standard": "^5.4.1",
     "wiredep": "^3.0.0"
   }

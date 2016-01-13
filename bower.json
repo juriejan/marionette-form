@@ -15,7 +15,10 @@
   "description": "",
   "dependencies": {
     "jquery": "~2.2.0",
-    "backbone.marionette": "~2.4.4"
+    "lodash": "~3.10.1",
+    "backbone.marionette": "~2.4.4",
+    "validator": "juriejan/validator",
+    "jquery.serializeJSON": "~2.7.2"
   },
   "devDependencies": {
     "mocha": "~2.3.4",

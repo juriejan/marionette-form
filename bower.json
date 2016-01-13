@@ -13,6 +13,13 @@
     "dist/js/marionette-form.js"
   ],
   "description": "",
+  "ignore": [
+    "src",
+    "scripts",
+    "test",
+    ".editorconfig",
+    ".gitignore"
+  ],
   "dependencies": {
     "jquery": "~2.2.0",
     "lodash": "~3.10.1",

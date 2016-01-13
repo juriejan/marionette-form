@@ -56,7 +56,8 @@
       'change': 'onChange'
     },
     initialize: function () {
-      this.fieldClass = this.options.fieldClass || '.field'
+      this.errorClass = this.options.errorClass || 'error'
+      this.fieldSelector = this.options.fieldSelector || '.field'
       this.suppressStates = false
       this.listenTo(this.view, 'clear', this.clear)
     },
@@ -119,13 +120,13 @@
       this.applyFormStates()
     },
     clearErrors: function () {
-      this.view.$el.find(this.fieldClass).removeClass('form-error')
+      this.view.$el.find(this.fieldSelector).removeClass(this.errorClass)
     },
     fieldError: function (error, name) {
       // TODO: Better error handling
       if (error) console.log(error)
       var el = this.view.$el.find('[name=' + name + ']')
-      el.closest(this.fieldClass).addClass('form-error')
+      el.closest(this.fieldSelector).addClass(this.errorClass)
     },
     validate: function (done) {
       var formData = this.$el.serializeJSON()
@@ -145,9 +146,9 @@
           // Apply errors to fields
           _.each(result, _.bind(this.fieldError, this))
           // Focus on the first field with an error
-          this.$el.find(this.fieldClass).each(function () {
+          this.$el.find(this.fieldSelector).each(function () {
             var el = $(this)
-            if (el.hasClass('form-error')) {
+            if (el.hasClass(this.errorClass)) {
               el.find('input').focus()
               return false
             }
@@ -157,7 +158,7 @@
     },
     alterStateByField: function (display, field) {
       var el = this.view.$el.find('[name=' + field + ']')
-      var group = el.closest(this.fieldClass)
+      var group = el.closest(this.fieldSelector)
       var parent = el.parent()
       if (parent.hasClass('dropdown')) {
         var view = utils.findDropdownView(this.view, field)

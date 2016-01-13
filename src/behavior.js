@@ -17,6 +17,7 @@ export default Marionette.Behavior.extend({
     'change': 'onChange'
   },
   initialize: function () {
+    this.fieldClass = this.options.fieldClass || '.field'
     this.suppressStates = false
     this.listenTo(this.view, 'clear', this.clear)
   },
@@ -79,13 +80,13 @@ export default Marionette.Behavior.extend({
     this.applyFormStates()
   },
   clearErrors: function () {
-    this.view.$el.find('.form-group').removeClass('form-error')
+    this.view.$el.find(this.fieldClass).removeClass('form-error')
   },
   fieldError: function (error, name) {
     // TODO: Better error handling
     if (error) console.log(error)
     var el = this.view.$el.find('[name=' + name + ']')
-    el.closest('.form-group').addClass('form-error')
+    el.closest(this.fieldClass).addClass('form-error')
   },
   validate: function (done) {
     var formData = this.$el.serializeJSON()
@@ -105,7 +106,7 @@ export default Marionette.Behavior.extend({
         // Apply errors to fields
         _.each(result, _.bind(this.fieldError, this))
         // Focus on the first field with an error
-        this.$el.find('.form-group').each(function () {
+        this.$el.find(this.fieldClass).each(function () {
           var el = $(this)
           if (el.hasClass('form-error')) {
             el.find('input').focus()
@@ -117,7 +118,7 @@ export default Marionette.Behavior.extend({
   },
   alterStateByField: function (display, field) {
     var el = this.view.$el.find('[name=' + field + ']')
-    var group = el.closest('.form-group')
+    var group = el.closest(this.fieldClass)
     var parent = el.parent()
     if (parent.hasClass('dropdown')) {
       var view = utils.findDropdownView(this.view, field)

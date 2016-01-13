@@ -28,9 +28,16 @@ function build () {
     .then((bundle) => bundle.generate({
       format: 'umd',
       moduleName: 'form',
+      sourceMap: true,
+      sourceMapFile: TARGET,
       globals
     }))
-    .then((result) => fs.writeFileAsync(TARGET, result.code))
+    .then((result) => {
+      return Promise.all([
+        fs.writeFileAsync(TARGET, result.code),
+        fs.writeFileAsync(`${TARGET}.map`, result.map)
+      ])
+    })
 }
 
 module.exports = build

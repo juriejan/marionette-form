@@ -81,13 +81,15 @@ export default Marionette.Behavior.extend({
     this.applyFormStates()
   },
   clearErrors: function () {
-    this.view.$el.find(this.fieldSelector).removeClass(this.errorClass)
+    var fields = this.view.$el.find(this.fieldSelector)
+    fields.removeClass(this.errorClass)
+    fields.find('.' + this.errorClass).remove()
   },
   fieldError: function (error, name) {
-    // TODO: Better error handling
-    if (error) console.log(error)
-    var el = this.view.$el.find('[name=' + name + ']')
-    el.closest(this.fieldSelector).addClass(this.errorClass)
+    var el = this.view.$el.find(`[name=${name}]`)
+    var field = el.closest(this.fieldSelector)
+    field.addClass(this.errorClass)
+    field.prepend(`<div class="message ${this.errorClass}">${error}</div>`)
   },
   validate: function (done) {
     var formData = this.$el.serializeJSON()

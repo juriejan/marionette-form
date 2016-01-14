@@ -2,6 +2,7 @@
 const _ = require('lodash')
 
 const rollup = require('rollup')
+const babel = require('rollup-plugin-babel')
 
 const Promise = require('bluebird')
 
@@ -23,7 +24,10 @@ function build () {
     .then(() => utils.mkdirs('dist/js'))
     .then(() => rollup.rollup({
       entry: 'src/index.js',
-      external: _.keys(globals)
+      external: _.keys(globals),
+      plugins: [
+        babel()
+      ]
     }))
     .then((bundle) => bundle.generate({
       format: 'umd',
@@ -38,6 +42,7 @@ function build () {
         fs.writeFileAsync(`${TARGET}.map`, result.map)
       ])
     })
+    .then(() => utils.log(`Bundled application at 'src/index.js'`))
 }
 
 module.exports = build

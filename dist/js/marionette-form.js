@@ -104,6 +104,7 @@
     },
     onSubmit: function onSubmit(e) {
       e.preventDefault();
+      this.view.trigger('attempt');
       this.attemptedSubmission = true;
       this.validate(function (err, data) {
         // TODO: Handle error from validator

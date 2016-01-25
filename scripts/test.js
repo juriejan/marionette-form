@@ -13,15 +13,15 @@ const SpecReporter = require('mocha/lib/reporters/spec')
 const build = require('./build')
 const utils = require('./utils')
 
-const PACKAGE = require('../package.json')
+const PACKAGE = require('../bower.json')
 const TARGET = PACKAGE['build-target']
 
-function setup (src) {
+function setup (src, target) {
   var reportEmitter = new EventEmitter()
   var reporter = new SpecReporter(reportEmitter)
   // Setup the scripts to load
   var scripts = wiredep({devDependencies: true}).js
-  scripts = scripts.concat(['test/setup.js', TARGET])
+  scripts = scripts.concat(['test/setup.js', target])
   // Create virtual console
   var virtualConsole = jsdom.createVirtualConsole()
   // Setup virtual console to handle jsdom errors
@@ -54,9 +54,7 @@ function setup (src) {
 
 function test () {
   // Combine build and testing globals
-  var globals = _.extend(
-    {}, PACKAGE['rollup-globals'], PACKAGE['rollup-test-globals']
-  )
+  var globals = _.extend({}, PACKAGE['globals'], PACKAGE['test-globals'])
   // Follow testing steps
   return Promise.resolve()
     .then(() => build())
@@ -65,7 +63,7 @@ function test () {
       external: _.keys(globals)
     }))
     .then((bundle) => bundle.generate({format: 'umd', globals}))
-    .then((result) => setup(result.code))
+    .then((result) => setup(result.code, TARGET))
 }
 
 module.exports = test

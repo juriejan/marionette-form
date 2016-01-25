@@ -20,6 +20,19 @@
     ".editorconfig",
     ".gitignore"
   ],
+  "module-name": "form",
+  "build-target": "dist/js/marionette-form.js",
+  "globals": {
+    "marionette": "Marionette",
+    "lodash": "_",
+    "jquery": "$",
+    "validator": "validator"
+  },
+  "test-globals": {
+    "mocha": "mocha",
+    "chai": "chai",
+    "form": "form"
+  },
   "dependencies": {
     "jquery": "~2.2.0",
     "lodash": "~4.0.0",

@@ -21,18 +21,6 @@
     "lint": "node scripts/lint.js",
     "test": "node scripts/test.js"
   },
-  "build-target": "dist/js/marionette-form.js",
-  "rollup-globals": {
-    "marionette": "Marionette",
-    "lodash": "_",
-    "jquery": "$",
-    "validator": "validator"
-  },
-  "rollup-test-globals": {
-    "mocha": "mocha",
-    "chai": "chai",
-    "form": "form"
-  },
   "dependencies": {},
   "devDependencies": {
     "babel-eslint": "^4.1.6",

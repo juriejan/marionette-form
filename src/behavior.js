@@ -96,8 +96,8 @@ export default Marionette.Behavior.extend({
     var validation = this.view.validation || {}
     // Filter validators and form data using the current form state
     var state = this.currentState
-    formData = _.pick(formData, function (v, k) { return state[k] })
-    validation = _.pick(validation, function (v, k) { return state[k] })
+    formData = _.pickBy(formData, function (v, k) { return state[k] })
+    validation = _.pickBy(validation, function (v, k) { return state[k] })
     // Validate the form data
     var validator = Validator.Validator(validation)
     validator.validate(formData, function (err, result) {

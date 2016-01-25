@@ -143,10 +143,10 @@
       var validation = this.view.validation || {};
       // Filter validators and form data using the current form state
       var state = this.currentState;
-      formData = _.pick(formData, function (v, k) {
+      formData = _.pickBy(formData, function (v, k) {
         return state[k];
       });
-      validation = _.pick(validation, function (v, k) {
+      validation = _.pickBy(validation, function (v, k) {
         return state[k];
       });
       // Validate the form data

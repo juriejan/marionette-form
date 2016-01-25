@@ -19,12 +19,13 @@ const TARGET = PACKAGE['build-target']
 const GLOBALS = PACKAGE['globals']
 
 function packageApplication (entry, dest, globals, moduleName) {
+  var sourceMapFile = path.resolve(dest, '../../../')
   return Promise.resolve()
     .then(() => rollup.rollup({
       entry, external: _.keys(globals), plugins: [rollupBabel()]
     }))
     .then((bundle) => bundle.generate({
-      dest, globals, moduleName, format: 'umd', sourceMap: true
+      dest, globals, moduleName, sourceMapFile, format: 'umd', sourceMap: true
     }))
     .then((result) => {
       var mapFileName = `${path.basename(dest)}.map`

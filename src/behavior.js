@@ -126,23 +126,23 @@ export default Marionette.Behavior.extend({
     if (parent.hasClass('dropdown')) {
       var view = utils.findDropdownView(this.view, field)
       if (_.isArray(display)) {
-        group.toggle(true)
+        utils.display(group, true)
         if (view) { view.setVisibleOptions(display) }
       } else {
-        group.toggle(!!display)
+        utils.display(group, display)
         if (display && view) { view.refresh() }
       }
     } else if (el.is('select')) {
       if (_.isObject(display)) {
         _.each(display, function (v, k) {
-          el.find('[value=' + k + ']').toggle(v)
+          utils.display(el.find('[value=' + k + ']'), display)
         })
       } else {
-        group.toggle(!!display)
-        el.find('option').toggle(!!display)
+        utils.display(group, display)
+        utils.display(el.find('option'), display)
       }
     } else {
-      group.toggle(!!display)
+      utils.display(group, display)
     }
   },
   applyFormStates: function () {

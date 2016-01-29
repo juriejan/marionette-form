@@ -9,6 +9,10 @@
   Marionette = 'default' in Marionette ? Marionette['default'] : Marionette;
   Validator = 'default' in Validator ? Validator['default'] : Validator;
 
+  function display(el, value) {
+    el.css('display', value ? '' : 'none');
+  }
+
   function findDropdownViewInRegions(view, name) {
     var result = null;
     // Search regions if they are available
@@ -45,6 +49,7 @@
   }
 
   var utils = {
+    display: display,
     findDropdownView: findDropdownView
   };
 
@@ -181,12 +186,12 @@
       if (parent.hasClass('dropdown')) {
         var view = utils.findDropdownView(this.view, field);
         if (_.isArray(display)) {
-          group.toggle(true);
+          utils.display(group, true);
           if (view) {
             view.setVisibleOptions(display);
           }
         } else {
-          group.toggle(!!display);
+          utils.display(group, display);
           if (display && view) {
             view.refresh();
           }
@@ -194,14 +199,14 @@
       } else if (el.is('select')) {
         if (_.isObject(display)) {
           _.each(display, function (v, k) {
-            el.find('[value=' + k + ']').toggle(v);
+            utils.display(el.find('[value=' + k + ']'), display);
           });
         } else {
-          group.toggle(!!display);
-          el.find('option').toggle(!!display);
+          utils.display(group, display);
+          utils.display(el.find('option'), display);
         }
       } else {
-        group.toggle(!!display);
+        utils.display(group, display);
       }
     },
     applyFormStates: function applyFormStates() {

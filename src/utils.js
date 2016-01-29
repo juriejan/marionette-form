@@ -1,6 +1,10 @@
 
 import * as _ from 'lodash'
 
+function display (el, value) {
+  el.css('display', (value ? '' : 'none'))
+}
+
 function findDropdownViewInRegions (view, name) {
   var result = null
   // Search regions if they are available
@@ -35,5 +39,6 @@ function findDropdownView (view, name) {
 }
 
 export default {
+  display,
   findDropdownView
 }

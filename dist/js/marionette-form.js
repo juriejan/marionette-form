@@ -78,7 +78,7 @@
         var $el = $(el);
         var value = data[$el.attr('name')];
         if (value) {
-          el.val(value).trigger('change');
+          $el.val(value).trigger('change');
         }
       });
       this.suppressStates = false;

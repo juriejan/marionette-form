@@ -89,6 +89,7 @@ export default Marionette.Behavior.extend({
   fieldError: function (error, name) {
     var el = this.view.$el.find(`[name=${name}]`)
     var field = el.closest(this.fieldSelector)
+    field.addClass(this.errorClass)
     this.view.trigger('error', field, error)
   },
   validate: function (done) {

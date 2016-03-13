@@ -31,7 +31,7 @@ export default Marionette.Behavior.extend({
     this.view.$el.find('input, select').each(function (i, el) {
       var $el = $(el)
       var value = data[$el.attr('name')]
-      if (value) { el.val(value).trigger('change') }
+      if (value) { $el.val(value).trigger('change') }
     })
     this.suppressStates = false
     this.applyFormStates()

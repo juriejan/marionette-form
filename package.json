@@ -16,6 +16,7 @@
     "node": ">=5.4.0",
     "npm": ">=3.3.12"
   },
+  "main": "dist/js/marionette-form.js",
   "scripts": {
     "build": "node scripts/build.js",
     "lint": "node scripts/lint.js",

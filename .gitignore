@@ -1,2 +1,8 @@
+.*
+*~
+*.log
+
 bower_components
 node_modules
+
+/src/templates.js

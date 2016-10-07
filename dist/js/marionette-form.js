@@ -49,8 +49,8 @@
   }
 
   var utils = {
-    display,
-    findDropdownView
+    display: display,
+    findDropdownView: findDropdownView
   };
 
   var FormBehavior = Marionette.Behavior.extend({
@@ -62,13 +62,13 @@
       'input': 'onInput',
       'change': 'onChange'
     },
-    initialize: function () {
+    initialize: function initialize() {
       this.errorClass = this.options.errorClass || 'error';
       this.fieldSelector = this.options.fieldSelector || '.field';
       this.suppressStates = false;
       this.listenTo(this.view, 'clear', this.clear);
     },
-    onShow: function () {
+    onShow: function onShow() {
       var data = this.view.serializeData();
       // Add dropdown icons for select controls
       this.ui.selects.after('<i class="icon-dropdown" />');
@@ -84,7 +84,7 @@
       this.suppressStates = false;
       this.applyFormStates();
     },
-    onChange: function (e) {
+    onChange: function onChange(e) {
       var el = $(e.target);
       var name = el.attr('name');
       // Refresh the form state according to the field
@@ -98,7 +98,7 @@
         this.validate();
       }
     },
-    onInput: function (e) {
+    onInput: function onInput(e) {
       var el = $(e.target);
       var name = el.attr('name');
       // Validate the form according to the field
@@ -107,7 +107,7 @@
         this.validate();
       }
     },
-    onSubmit: function (e) {
+    onSubmit: function onSubmit(e) {
       e.preventDefault();
       this.view.trigger('attempt');
       this.attemptedSubmission = true;
@@ -123,7 +123,7 @@
         this.view.trigger('submit', data);
       }.bind(this));
     },
-    clear: function () {
+    clear: function clear() {
       this.attemptedSubmission = false;
       this.suppressStates = true;
       this.view.$el.find('input').each(function (i, el) {
@@ -133,19 +133,19 @@
       this.suppressStates = false;
       this.applyFormStates();
     },
-    clearErrors: function () {
+    clearErrors: function clearErrors() {
       var fields = this.view.$el.find(this.fieldSelector);
       fields.removeClass(this.errorClass);
       fields.find('.' + this.errorClass).remove();
       this.view.trigger('clearErrors');
     },
-    fieldError: function (error, name) {
-      var el = this.view.$el.find(`[name=${ name }]`);
+    fieldError: function fieldError(error, name) {
+      var el = this.view.$el.find('[name=' + name + ']');
       var field = el.closest(this.fieldSelector);
       field.addClass(this.errorClass);
       this.view.trigger('error', field, error);
     },
-    validate: function (done) {
+    validate: function validate(done) {
       var formData = this.$el.serializeJSON();
       var validation = this.view.validation || {};
       // Filter validators and form data using the current form state
@@ -181,7 +181,7 @@
         }
       }.bind(this));
     },
-    alterStateByField: function (display, field) {
+    alterStateByField: function alterStateByField(display, field) {
       var el = this.view.$el.find('[name=' + field + ']');
       var group = el.closest(this.fieldSelector);
       var parent = el.parent();
@@ -194,9 +194,6 @@
           }
         } else {
           utils.display(group, display);
-          if (display && view) {
-            view.refresh();
-          }
         }
       } else if (el.is('select')) {
         if (_.isObject(display)) {
@@ -211,7 +208,7 @@
         utils.display(group, display);
       }
     },
-    applyFormStates: function () {
+    applyFormStates: function applyFormStates() {
       var modelData = this.view.serializeData();
       var formData = this.$el.serializeJSON();
       var data = _.extend(modelData, formData);
@@ -256,7 +253,7 @@
   });
 
   var index = {
-    FormBehavior
+    FormBehavior: FormBehavior
   };
 
   return index;

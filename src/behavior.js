@@ -132,7 +132,6 @@ export default Marionette.Behavior.extend({
         if (view) { view.setVisibleOptions(display) }
       } else {
         utils.display(group, display)
-        if (display && view) { view.refresh() }
       }
     } else if (el.is('select')) {
       if (_.isObject(display)) {

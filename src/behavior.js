@@ -85,7 +85,6 @@ export default Marionette.Behavior.extend({
     var fields = this.view.$el.find(this.fieldSelector)
     fields.removeClass(this.errorClass)
     fields.find('.' + this.errorClass).remove()
-    this.view.trigger('clearErrors')
   },
   fieldError: function (error, name) {
     var el = this.view.$el.find(`[name=${name}]`)

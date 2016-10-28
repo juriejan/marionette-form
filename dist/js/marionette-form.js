@@ -116,6 +116,9 @@
         if (err) {
           console.log(err);return;
         }
+        // Exclude indicated fields
+        var exclude = this.view.exclude || {};
+        data = _.omit(data, exclude);
         if (this.view.model) {
           this.view.model.set(data);
         }
@@ -241,11 +244,6 @@
       _.each(result, this.alterStateByField.bind(this));
       // Determine the complete state
       var state = _.clone(result);
-      // Exclude indicated fields
-      var exclude = this.view.exclude || {};
-      _.each(exclude, function (o) {
-        state[o] = false;
-      });
       // Store the complete state
       this.currentState = state;
     }

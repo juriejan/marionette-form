@@ -66,6 +66,9 @@ export default Marionette.Behavior.extend({
     this.validate(function (err, data) {
       // TODO: Handle error from validator
       if (err) { console.log(err); return }
+      // Exclude indicated fields
+      var exclude = this.view.exclude || {}
+      data = _.omit(data, exclude)
       if (this.view.model) { this.view.model.set(data) }
       this.attemptedSubmission = false
       this.view.trigger('submit', data)
@@ -177,9 +180,6 @@ export default Marionette.Behavior.extend({
     _.each(result, this.alterStateByField.bind(this))
     // Determine the complete state
     var state = _.clone(result)
-    // Exclude indicated fields
-    var exclude = this.view.exclude || {}
-    _.each(exclude, function (o) { state[o] = false })
     // Store the complete state
     this.currentState = state
   }

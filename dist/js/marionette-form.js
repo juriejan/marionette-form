@@ -92,11 +92,6 @@
       if (state && !this.suppressStates) {
         this.applyFormStates();
       }
-      // Validate the form according to the field
-      var rule = this.view.validation[name];
-      if (rule && this.attemptedSubmission) {
-        this.validate();
-      }
     },
     onInput: function onInput(e) {
       var el = $(e.target);
@@ -131,7 +126,7 @@
       this.suppressStates = true;
       this.view.$el.find('input').each(function (i, el) {
         var $el = $(el);
-        $el.val('').trigger('change');
+        $el.val('').trigger('input').trigger('change');
       });
       this.suppressStates = false;
       this.applyFormStates();
